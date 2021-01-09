@@ -83,7 +83,7 @@ namespace sm {
 		}
 
 
-		vec4<T> &operator*=( const Matrix<2, 2> &m ) {
+		vec4<T> &operator*=( const mat<2, 2, T> &m ) {
 			x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z + m(3, 0) * w;
 			x = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z + m(3, 1) * w;
 			x = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z + m(3, 2) * w;
@@ -98,7 +98,7 @@ namespace sm {
 		}
 
 		vec4<T> &normalize() {
-			double length = length();
+			double length = this->length();
 			x /= length;
 			y /= length;
 			z /= length;
@@ -169,7 +169,7 @@ namespace sm {
 
 
 	template <typename T>
-	vec4<T> operator*( const vec4<T> &v, const Matrix<2, 2> &m ) {
+	vec4<T> operator*( const vec4<T> &v, const mat<2, 2, T> &m ) {
 		vec4<T> result = v;
 		return result *= m;
 	}

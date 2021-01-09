@@ -20,7 +20,9 @@
 
 #include <iostream>
 namespace sm {
-		mat4 &translate( mat4 &m, const vec3f &v) {
+
+	template<typename T>
+	mat4<T> &translate( mat4<T> &m, const vec3f &v) {
 		/*  translate m by c,
 			return a reference to m;
 		*/
@@ -31,8 +33,9 @@ namespace sm {
 		return m;
 	}
 
-	mat4 getTranslate( const mat4 &m, const vec3f &v ) {
-		mat4 result = m;
+	template<typename T>
+	mat4<T> getTranslate( const mat4<T> &m, const vec3<T> &v ) {
+		mat4<T> result = m;
 		return translate(result, v);
 	}
 
@@ -40,4 +43,4 @@ namespace sm {
 
 };
 
-#endif // MATRIX_EXTRAS_INCLUDED_
+#endif

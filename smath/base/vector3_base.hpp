@@ -77,7 +77,7 @@ namespace sm {
 		}
 
 
-		vec3<T> &operator*=( const Matrix<2, 2> &m ) {
+		vec3<T> &operator*=( const mat<2, 2, T> &m ) {
 			x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z;
 			x = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z;
 			x = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z;
@@ -91,7 +91,7 @@ namespace sm {
 		}
 
 		vec3<T> &normalize() {
-			double length = length();
+			double length = this->length();
 			x /= length;
 			y /= length;
 			z /= length;
@@ -161,7 +161,7 @@ namespace sm {
 
 
 	template <typename T>
-	vec3<T> operator*( const vec3<T> &v, const Matrix<2, 2> &m ) {
+	vec3<T> operator*( const vec3<T> &v, const mat<2, 2, T> &m ) {
 		vec3<T> result = v;
 		return result *= m;
 	}
