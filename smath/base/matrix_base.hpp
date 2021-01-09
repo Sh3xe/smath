@@ -1,10 +1,16 @@
-#ifndef MATRIX_TYPE_HPP_
-#define MATRIX_TYPE_HPP_
+#ifndef MATRIX_BASE_INCLUDED_
+#define MATRIX_BASE_INCLUDED_
 
 #include <initializer_list>
 
+/*
+TODO:
+	determinant
+	inverse
+*/
+
 namespace sm {
-		
+	
 	template <unsigned H, unsigned W>
 	class Matrix {
 	private:
@@ -48,12 +54,12 @@ namespace sm {
 		}
 
 		inline float &operator()(int y, int x) {
-			/* used to access elements in the matrix */
+			/* used to access elements in the matrix, INDICES STARTS AT 0 */
 			return data[y * width + x];
 		}
 
 		inline const float &operator()(int y, int x) const{
-			/* used to access elements in the matrix */
+			/* used to access elements in the matrix, INDICES STARTS AT 0 */
 			return data[y * width + x];
 		}
 
@@ -117,13 +123,11 @@ namespace sm {
 				float dot_product_result = 0.0f;
 				for(int i = 0; i < size_b; ++i)
 					dot_product_result += m1(y, i) * m2(i, x);
-				
 				res(y, x) = dot_product_result;
 			}
 		
 		return res;
 	}
-
 
 	template <unsigned size_a, unsigned size_b>
 	Matrix<size_a, size_b> operator*( Matrix<size_a, size_b> m,  float n ) {
@@ -162,4 +166,4 @@ namespace sm {
 
 };
 
-#endif // MATRIX_TYPE_HPP_
+#endif

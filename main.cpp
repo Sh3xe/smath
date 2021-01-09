@@ -1,16 +1,26 @@
 #include <iostream>
-#include "smath.hpp"
+#include "smath/smath.hpp"
 
-void log(const sm::vec2f &vec) {
+template <typename T>
+void sLog(const sm::vec2<T> &vec) {
 	std::cout << vec.x << ' ' << vec.y << std::endl;
 }
 
-void log(const sm::vec3f &vec) {
+template <typename T>
+void sLog( const T &a) {
+	std::cout << a << std::endl;
+}
+
+void sLog(const sm::vec3f &vec) {
 	std::cout << vec.x << ' ' << vec.y << ' ' << vec.z << std::endl;
 }
 
+void sLog(const sm::vec4f &vec) {
+	std::cout << vec.x << ' ' << vec.y << ' ' << vec.z << ' ' << vec.w << std::endl;
+}
+
 template <unsigned H, unsigned W>
-void log(sm::mat<H, W> mat) {
+void sLog(sm::mat<H, W> mat) {
 	for(int y = 0; y < H; ++y) {
 		for(int x = 0; x < W; ++x)
 			std::cout << mat(y, x) << ' ';
@@ -20,18 +30,20 @@ void log(sm::mat<H, W> mat) {
 
 int main() {
 
-	sm::mat<3, 2> A {
-		1.f, 2.4f,
-		5.3f, 2.22f,
-		1.f, 0.f
-	};
+	sm::vec2d vec1 {0.024, 95.33};
+	sm::vec2d vec2 {2.223, 5.624};
 
-	sm::mat<2, 5> B {
-		1.f, 2.f, 3.f, 1.f, 2.f,
-		0.2543f, 2.f, 2.f, 3.f, 44.f
-	};
+	sm::vec2d vec3 {1.0, 2.0};
 
-	log( A * B );
+	sLog( dot(vec1, vec2) );
+
+	sLog( vec3 * 2.0 );
+	sLog( vec3 + 2.0 );
+	sLog( vec3 - 2.0 );
+	sLog( vec3 / 2.0 );
+
+	sLog( vec3 + vec1 );
+	sLog( vec3 - vec1 );
 
 	return 0;
 }

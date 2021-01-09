@@ -1,9 +1,8 @@
-#ifndef VECTOR3_TYPE_HPP_INCLUDED_
-#define VECTOR3_TYPE_HPP_INCLUDED_
+#ifndef VECTOR3_BASE_INCLUDED_
+#define VECTOR3_BASE_INCLUDED_
 
 #include <cmath>
-
-// TODO: GROSSE VERIFICATION
+#include "matrix_base.hpp"
 
 namespace sm {
 
@@ -130,6 +129,15 @@ namespace sm {
 		}
 
 
+		Vector3f &operator*=( const Matrix<3, 3> &m ) {
+			this->x = m(0, 0) * this->x + m(1, 0) * this->y + m(2, 0) * this->z;
+			this->y = m(0, 1) * this->x + m(1, 1) * this->y + m(2, 1) * this->z;
+			this->z = m(0, 2) * this->x + m(1, 2) * this->y + m(2, 2) * this->z;
+
+			return *this;
+		}
+
+
 		float length() {
 			return sqrt( x*x + y*y + z*z );
 		}
@@ -193,14 +201,10 @@ namespace sm {
 		return result -= left;
 	}
 
-	Vector3f operator*( const Vector3f &right, const Vector3f &left ) {
-		Vector3f result = right;
-		return result *= left;
-	}
 
-	Vector3f operator/( const Vector3f &right, const Vector3f &left ) {
-		Vector3f result = right;
-		return result /= left;
+	Vector3f operator*( const Vector3f &v, const Matrix<3, 3> &m ) {
+		Vector3f result = v;
+		return result *= m;
 	}
 
 
@@ -226,6 +230,6 @@ namespace sm {
 
 	using vec3f = Vector3f;
 
-}; // namespace sm
+};
 
-#endif // VECTOR3_TYPE_HPP_INCLUDED_
+#endif

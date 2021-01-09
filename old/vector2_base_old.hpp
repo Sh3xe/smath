@@ -1,7 +1,8 @@
-#ifndef VECTOR2_TYPE_HPP_INCLUDED_
-#define VECTOR2_TYPE_HPP_INCLUDED_
+#ifndef VECTOR2_BASE_INCLUDED_
+#define VECTOR2_BASE_INCLUDED_
 
 #include <cmath>
+#include "matrix_base.hpp"
 
 namespace sm {
 
@@ -18,8 +19,6 @@ namespace sm {
 
 		Vector2( T n) : x(n), y(n) {}
 		Vector2( T x, T y ): x(x), y(y) {}
-
-		Vector2( const Vector2<T> &vec ): x(vec.x), y(vec.y) {}
 
 		Vector2<T> &operator=(const Vector2<T> &vec) {
 			this->x = vec.x;
@@ -43,7 +42,6 @@ namespace sm {
 		Vector2f( float x, float y ): x(x), y(y) {}
 
 		Vector2f( const Vector2<float> &vec_f ): x(vec_f.x), y(vec_f.y) {}
-		Vector2f( const Vector2f &vec ): x(vec.x), y(vec.y) {}
 
 		Vector2f &operator=( const Vector2f &vec_f ) {
 			this->x = vec_f.x;
@@ -107,18 +105,10 @@ namespace sm {
 			return *this;
 		}
 
-		Vector2f &operator*=( const Vector2f &other ) {
-			/* multiply each element of "*this" with "other" */
-			this->x *= other.x;
-			this->y *= other.y;
 
-			return *this;
-		}
-
-		Vector2f &operator/=( const Vector2f &other ) {
-			/* divide each element of "*this" with "other" */
-			this->x /= other.x;
-			this->y /= other.y;
+		Vector2f &operator*=( const Matrix<2, 2> &m ) {
+			this->x = m(0, 0) * this->x + m(1, 0) * this->y;
+			this->y = m(0, 1) * this->x + m(1, 1) * this->y;
 
 			return *this;
 		}
@@ -190,18 +180,10 @@ namespace sm {
 		return result;
 	}
 
-	Vector2f operator*( const Vector2f &right, const Vector2f &left ) {
-		Vector2f result = right;
-		result *= left;
 
-		return result;
-	}
-
-	Vector2f operator/( const Vector2f &right, const Vector2f &left ) {
-		Vector2f result = right;
-		result /= left;
-
-		return result;
+	Vector2f operator*( const Vector2f &v, const Matrix<2, 2> &m ) {
+		Vector2f result = v;
+		return result *= m;
 	}
 
 
@@ -216,6 +198,6 @@ namespace sm {
 
 	using vec2f = Vector2f;
 
-}; // namespace sm
+};
 
-#endif // VECTOR2_TYPE_HPP_INCLUDED_
+#endif
