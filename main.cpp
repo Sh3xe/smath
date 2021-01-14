@@ -1,6 +1,8 @@
 #include <iostream>
 #include "smath/smath.hpp"
 
+#define PI 3.14159265358979323846264338327950288419716939937510
+
 template <typename T>
 void sLog(const sm::vec2<T> &vec) {
 	std::cout << vec.x << ' ' << vec.y << std::endl;
@@ -11,11 +13,13 @@ void sLog( const T &a) {
 	std::cout << a << std::endl;
 }
 
-void sLog(const sm::vec3f &vec) {
+template <typename T>
+void sLog(const sm::vec3<T> &vec) {
 	std::cout << vec.x << ' ' << vec.y << ' ' << vec.z << std::endl;
 }
 
-void sLog(const sm::vec4f &vec) {
+template <typename T>
+void sLog(const sm::vec4<T> &vec) {
 	std::cout << vec.x << ' ' << vec.y << ' ' << vec.z << ' ' << vec.w << std::endl;
 }
 
@@ -31,6 +35,8 @@ void sLog(const sm::mat<H, W, T> &mat) {
 
 int main() {
 
+	std::cout << std::fixed;
+
 	sm::matd<2, 4> m1 = {
 		2.3, 5.1, 9.0, 0.7,
 		2.3, 6.4, 9.7, 2.0
@@ -43,7 +49,16 @@ int main() {
 		9.9, 2.2, 2.2
 	};
 
-	sLog( m1 * m2 );
+	//sLog( m1 * m2 );
+
+	sm::vec4d vec1 = { 2.0, 3.0, -3.2, 1.0 };
+	sm::mat4d mat1 = sm::getTranslate( sm::mat4d(), sm::vec3d(1.0, 2.0, -3.0) );
+
+	sm::mat4d mat2 = sm::getRotationAboutZ<double>( PI * 0.5 );
+	sm::vec4d vec2 (1.0, 0.0, 0.0, 1.0);
+	sLog( vec2 *= mat2 );
+
+	sLog( sm::getRotation<double>(PI, sm::vec3d(1.0, 1.0, 1.0).normalize()));
 
 	return 0;
 }

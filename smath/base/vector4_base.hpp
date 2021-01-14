@@ -83,11 +83,15 @@ namespace sm {
 		}
 
 
-		vec4<T> &operator*=( const mat<2, 2, T> &m ) {
-			x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z + m(3, 0) * w;
-			x = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z + m(3, 1) * w;
-			x = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z + m(3, 2) * w;
-			x = m(0, 3) * x + m(1, 3) * y + m(2, 3) * z + m(3, 3) * w;
+		vec4<T> &operator*=( const mat<4, 4, T> &m ) {
+			T tmp_x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z + m(3, 0) * w;
+			T tmp_y = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z + m(3, 1) * w;
+			T tmp_z = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z + m(3, 2) * w;
+			w = m(0, 3) * x + m(1, 3) * y + m(2, 3) * z + m(3, 3) * w;
+
+			x = tmp_x;
+			y = tmp_y;
+			z = tmp_z;
 
 			return *this;
 		}
@@ -169,7 +173,7 @@ namespace sm {
 
 
 	template <typename T>
-	vec4<T> operator*( const vec4<T> &v, const mat<2, 2, T> &m ) {
+	vec4<T> operator*( const vec4<T> &v, const mat<4, 4, T> &m ) {
 		vec4<T> result = v;
 		return result *= m;
 	}
@@ -180,7 +184,7 @@ namespace sm {
 		/* mathematical dot product */
 		return right.x * left.x + right.y * left.y + right.z * left.z + right.w * left.w;
 	}
-
+	
 	// using declarations
 	using vec4f = vec4<float>;
 	using vec4d = vec4<double>;

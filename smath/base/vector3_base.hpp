@@ -25,7 +25,7 @@ namespace sm {
 			/* adds n to each "*this" elements */
 			x += n;
 			y += n;
-            z += n;
+			z += n;
 
 			return *this;
 		}
@@ -34,7 +34,7 @@ namespace sm {
 			/* substract n to each "*this" elements */
 			x -= n;
 			y -= n;
-            z -= n;
+			z -= n;
 
 			return *this;
 		}
@@ -43,7 +43,7 @@ namespace sm {
 			/* multiply n to each "*this" elements */
 			x *= n;
 			y *= n;
-            z *= n;
+			z *= n;
 
 			return *this;
 		}
@@ -52,7 +52,7 @@ namespace sm {
 			/* divide n to each *this elements */
 			x /= n;
 			y /= n;
-            z /= n;
+			z /= n;
 
 			return *this;
 		}
@@ -62,7 +62,7 @@ namespace sm {
 			/* vector-vector addition */
 			x += other.x;
 			y += other.y;
-            z += other.z;
+			z += other.z;
 
 			return *this;
 		}
@@ -71,16 +71,19 @@ namespace sm {
 			/* vector-vector substraction */
 			x -= other.x;
 			y -= other.y;
-            z -= other.z;
+			z -= other.z;
 
 			return *this;
 		}
 
 
-		vec3<T> &operator*=( const mat<2, 2, T> &m ) {
-			x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z;
-			x = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z;
-			x = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z;
+		vec3<T> &operator*=( const mat<3, 3, T> &m ) {
+			T tmp_x = m(0, 0) * x + m(1, 0) * y + m(2, 0) * z;
+			T tmp_y = m(0, 1) * x + m(1, 1) * y + m(2, 1) * z;
+			z = m(0, 2) * x + m(1, 2) * y + m(2, 2) * z;
+
+			x = tmp_x;
+			y = tmp_y;
 
 			return *this;
 		}
@@ -161,7 +164,7 @@ namespace sm {
 
 
 	template <typename T>
-	vec3<T> operator*( const vec3<T> &v, const mat<2, 2, T> &m ) {
+	vec3<T> operator*( const vec3<T> &v, const mat<3, 3, T> &m ) {
 		vec3<T> result = v;
 		return result *= m;
 	}

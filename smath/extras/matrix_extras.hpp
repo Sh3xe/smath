@@ -19,10 +19,12 @@
 #include "../base/vector3_base.hpp"
 
 #include <iostream>
+#include <cmath>
+
 namespace sm {
 
 	template<typename T>
-	mat4<T> &translate( mat4<T> &m, const vec3f &v) {
+	mat4<T> &translate( mat4<T> &m, const vec3<T> &v) {
 		/*  translate m by c,
 			return a reference to m;
 		*/
@@ -39,8 +41,53 @@ namespace sm {
 		return translate(result, v);
 	}
 
+	template <typename T>
+	mat4<T> getRotationAboutX( double thetha_rad ) {
+		return mat4<T> {
+			1.0, 0.0             , 0.0            , 0.0,
+			0.0, cos(thetha_rad) , sin(thetha_rad), 0.0,
+			0.0, -sin(thetha_rad), cos(thetha_rad), 0.0,
+			0.0, 0.0             , 0.0            , 1.0
+		};
+	};
 
+	template <typename T>
+	mat4<T> getRotationAboutY( double thetha_rad ) {
+		return mat4<T> {
+			cos(thetha_rad), 0.0, -sin(thetha_rad), 0.0,
+			0.0            , 1.0, 0.0             , 0.0,
+			sin(thetha_rad), 0.0, cos(thetha_rad) , 0.0,
+			0.0            , 0.0, 0.0             , 1.0
+		};
+	};
 
+	template <typename T>
+	mat4<T> getRotationAboutZ( double thetha_rad ) {
+		return mat4<T> {
+			cos(thetha_rad) , sin(thetha_rad), 0.0, 0.0,
+			-sin(thetha_rad), cos(thetha_rad), 0.0, 0.0,
+			0.0             , 0.0            , 1.0, 0.0,
+			0.0             , 0.0            , 0.0, 1.0
+		};
+	};
+
+	template <typename T>
+	mat4<T> getRotation( double thetha_rad, const sm::vec3<T> &vec ) {
+		double cos_thetha = cos(thetha_rad);
+		double sin_thetha = sin(thetha_rad);
+		return mat4<T> {
+			vec.x*vec.x*(1.0-cos_thetha) + cos_thetha    , vec.x*vec.y*(1.0-cos_thetha) + vec.z*sin_thetha, vec.x*vec.z*(1.0-cos_thetha)-vec.y*sin_thetha, 0.0,
+			vec.x*vec.y*(1.0-cos_thetha)-vec.z*sin_thetha, vec.y*vec.y*(1.0-cos_thetha)+cos_thetha        , vec.y*vec.z*(1.0-cos_thetha)+vec.x*sin_thetha, 0.0,
+			vec.x*vec.z*(1.0-cos_thetha)+vec.y*sin_thetha, vec.y*vec.z*(1.0-cos_thetha)-vec.x*sin_thetha  , vec.z*vec.z*(1.0-cos_thetha)+cos_thetha      , 0.0,
+			0.0                                          , 0.0                                            , 0.0                                          , 1.0
+		};
+	}
+
+/*
+vec.x*vec.x*(1.0-cos_thetha) + cos_thetha    , vec.x*vec.y*(1.0-cos_thetha) + vec.z*sin_thetha, vec.x*vec.z*(1.0-cos_thetha)-vec.y*sin_thetha, 0.0,
+			vec.x*vec.y*(1.0-cos_thetha)-vec.z*sin_thetha, vec.y*vec.y*(1.0-cos_thetha)+cos_thetha        , vec.y*vec.z*(1.0-cos_thetha)+vec.x*sin_thetha, 0.0,
+			vec.x*vec.z*(1.0-cos_thetha)+vec.y*sin_thetha, vec.y*vec.z(1.0-cos_thetha)-vec.x*sin_thetha   , vec.z*vec.z*(1.0-cos_thetha)+cos_thetha      , 0.0,
+			0.0                                          , 0.0                                            , 0.0                                          , 1.0*/
 };
 
 #endif

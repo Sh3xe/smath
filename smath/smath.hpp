@@ -13,6 +13,4 @@
 #include "base/matrix_base.hpp"
 #include "extras/matrix_extras.hpp"
 
-
-
-#endif // SMATH_INCLUDED_
+#endif

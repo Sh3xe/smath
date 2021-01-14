@@ -72,8 +72,10 @@ namespace sm {
 
 
 		vec2<T> &operator*=( const mat<2, 2, T> &m ) {
-			x = m(0, 0) * x + m(1, 0) * y;
+			T tmp_x = m(0, 0) * x + m(1, 0) * y;
 			y = m(0, 1) * x + m(1, 1) * y;
+
+			x = tmp_x;
 
 			return *this;
 		}

@@ -74,7 +74,6 @@ namespace sm {
 		}
 
 		// math operations
-
 		mat<height, width, T> &operator*=( T n ) {
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
@@ -178,6 +177,7 @@ namespace sm {
 
 	template <typename T>
 	using mat2 = mat<2, 2, T>;
+
 
 	using mat4d = mat<4, 4, double>;
 	using mat3d = mat<3, 3, double>;
