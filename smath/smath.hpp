@@ -1,6 +1,9 @@
 #ifndef SMATH_INCLUDED_
 #define SMATH_INCLUDED_
 
+#include "base/constants.hpp"
+#include "extras/conversions.hpp"
+
 #include "base/vector2_base.hpp"
 #include "extras/vector2_extras.hpp"
 

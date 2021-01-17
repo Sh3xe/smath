@@ -1,7 +1,5 @@
 /* TODO:
 	# AXIS ALIGNED AND ARBITRARY ORIENTED
-	rotation
-	translation
 	scale
 	skew
 	reflection
@@ -22,23 +20,14 @@
 #include <cmath>
 
 namespace sm {
-
 	template<typename T>
-	mat4<T> &translate( mat4<T> &m, const vec3<T> &v) {
-		/*  translate m by c,
-			return a reference to m;
-		*/
-		m(3, 0) += v.x;
-		m(3, 1) += v.y;
-		m(3, 2) += v.z;
-
-		return m;
-	}
-
-	template<typename T>
-	mat4<T> getTranslate( const mat4<T> &m, const vec3<T> &v ) {
-		mat4<T> result = m;
-		return translate(result, v);
+	mat4<T> getTranslate( const vec3<T> &v ) {
+		return mat4<T> {
+			1.0, 0.0, 0.0, 0.0,	
+			0.0, 1.0, 0.0, 0.0,	
+			0.0, 0.0, 1.0, 0.0,	
+			v.x, v.y, v.z, 1.0
+		};
 	}
 
 	template <typename T>
@@ -82,12 +71,6 @@ namespace sm {
 			0.0                                          , 0.0                                            , 0.0                                          , 1.0
 		};
 	}
-
-/*
-vec.x*vec.x*(1.0-cos_thetha) + cos_thetha    , vec.x*vec.y*(1.0-cos_thetha) + vec.z*sin_thetha, vec.x*vec.z*(1.0-cos_thetha)-vec.y*sin_thetha, 0.0,
-			vec.x*vec.y*(1.0-cos_thetha)-vec.z*sin_thetha, vec.y*vec.y*(1.0-cos_thetha)+cos_thetha        , vec.y*vec.z*(1.0-cos_thetha)+vec.x*sin_thetha, 0.0,
-			vec.x*vec.z*(1.0-cos_thetha)+vec.y*sin_thetha, vec.y*vec.z(1.0-cos_thetha)-vec.x*sin_thetha   , vec.z*vec.z*(1.0-cos_thetha)+cos_thetha      , 0.0,
-			0.0                                          , 0.0                                            , 0.0                                          , 1.0*/
 };
 
 #endif
