@@ -1,5 +1,5 @@
-#ifndef mat_BASE_INCLUDED_
-#define mat_BASE_INCLUDED_
+#ifndef MATRIX_BASE_INCLUDED_
+#define MATRIX_BASE_INCLUDED_
 
 #include <initializer_list>
 
@@ -42,9 +42,9 @@ namespace sm {
 		}
 
 		// operations
-		mat<width, height, T> getTranspose() const {
+		mat<H, W, T> getTranspose() const {
 			/* return a new matrix, transpose of the current one */
-			mat<width, height, T> transpose;
+			mat<H, W, T> transpose;
 
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
@@ -74,35 +74,35 @@ namespace sm {
 		}
 
 		// math operations
-		mat<height, width, T> &operator*=( T n ) {
+		mat<H, W, T> &operator*=( T n ) {
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
 					this->operator()(y, x) *= n;
 			return *this;
 		}
 
-		mat<height, width, T> &operator/=( T n ) {
+		mat<H, W, T> &operator/=( T n ) {
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
 					this->operator()(y, x) /= n;
 			return *this;
 		}
 
-		mat<width, height, T> &operator+=( const mat<width, height, T> &other) {
+		mat<H, W, T> &operator+=( const mat<H, W, T> &other) {
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
 					this->operator()(y, x) += other(y, x);
 			return *this;
 		}
 
-		mat<width, height, T> &operator-=( const mat<width, height, T> &other) {
+		mat<H, W, T> &operator-=( const mat<H, W, T> &other) {
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
 					this->operator()(y, x) -= other(y, x);
 			return *this;
 		}
 
-		mat<height, width, T> &operator-() {
+		mat<H, W, T> &operator-() {
 			/* negate all elements in a matrix */
 			for(int x = 0; x < width; ++x)
 				for(int y = 0; y < height; ++y)
@@ -158,23 +158,17 @@ namespace sm {
 
 	template <unsigned size_a, unsigned size_b>
 	using matf = mat<size_a, size_b, float>;
-
 	template <unsigned size_a, unsigned size_b>
 	using matd = mat<size_a, size_b, double>;
-
 	template <unsigned size_a, unsigned size_b>
 	using mati = mat<size_a, size_b, int>;
-	
 	template <unsigned size_a, unsigned size_b>
 	using matu = mat<size_a, size_b, unsigned>;
 
-
 	template <typename T>
 	using mat4 = mat<4, 4, T>;
-
 	template <typename T>
 	using mat3 = mat<3, 3, T>;
-
 	template <typename T>
 	using mat2 = mat<2, 2, T>;
 
@@ -182,15 +176,12 @@ namespace sm {
 	using mat4d = mat<4, 4, double>;
 	using mat3d = mat<3, 3, double>;
 	using mat2d = mat<2, 2, double>;
-
 	using mat4f = mat<4, 4, float>;
 	using mat3f = mat<3, 3, float>;
 	using mat2f = mat<2, 2, float>;
-
 	using mat4i = mat<4, 4, int>;
 	using mat3i = mat<3, 3, int>;
 	using mat2i = mat<2, 2, int>;
-
 	using mat4u = mat<4, 4, unsigned>;
 	using mat3u = mat<3, 3, unsigned>;
 	using mat2u = mat<2, 2, unsigned>;
